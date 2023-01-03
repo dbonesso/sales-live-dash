@@ -23,7 +23,8 @@ Esse trabalho é baseado no artigo original [upyter Notebook & Spark on Kubernet
     microk8s kubectl create namespace ml-data-engg
     </code>
 
-For this demo, I am going to upload a json file from [here](data/orders.json) to a bucket called test-bucket in minio
+Para os testes vamos utilizar os dados de...
+
 
 
 ## Getting started - Spark Installation locally
@@ -57,7 +58,7 @@ RUN apt-get update && \
 
 - Add minio secrets and reference it later
 ```
-kubectl create secret generic minio-api-client-credentials  \
+microk8s kubectl create secret generic minio-api-client-credentials  \
     --from-literal=MINIO_HOST_URL="<MINIO_SVC_HOST_NAME>.minio:9000" \
     --from-literal=MINIO_HTTP_ENDPOINT="http://<MINIO_SVC_HOST_NAME>.minio:9000" \
     --from-literal=MINIO_ACCESS_KEY="YourAccessKey" \
