@@ -1,14 +1,27 @@
 # Kubernetes pipeline agnostico
 
-## Aqui vamos descrever os pre-requisitos para rodar o projeto.
+Esse trabalho é baseado no artigo original [upyter Notebook & Spark on Kubernetes](https://towardsdatascience.com/jupyter-notebook-spark-on-kubernetes-880af7e06351). Em nossa implementação optamos por utilizar [Microk8s] (https://microk8s.io/) desenvolvido pela Canonical que ao contrário do Minikube suporta multiplos nodes e pode ser utilizando em produção.
 
-## Pre-requisites
-1. An existing kubernetes cluster
-2. MINIO Installed in kubernetes in the namespace called minio <code>microk8s kubectl delete namespace minio-operator</code>
-3. Optional - Download JDK 17 if testing locally
-4. Optional - Install poetry for testing python code locally
-5. GPU enabled on Kubernetes (if using gpu powered notebook)
-6. If following this guide, namespace called ml-data-engg should be defined
+
+## Aqui vamos descrever os pre-requisitos para rodar o projeto.
+1. Um cluster kubernetes Microk8s
+2. Instalar o minio um objeto storage compativel com S3
+    <code>
+    microk8s kubectl create namespace minio-operator
+    microk8s kubectl apply -f dev/minio.yaml -n minio
+    </code>
+3. Instala o JDK para gerar as imagens localmente
+   <code>
+     apt install openjdk-11-jre-headless 
+   </code>
+4. Instala o poetry 
+   <code>
+   curl -sSL https://install.python-poetry.org | python3 -
+   </code>
+5. Cria um namespace ml-data-engg
+    <code>
+    microk8s kubectl create namespace ml-data-engg
+    </code>
 
 For this demo, I am going to upload a json file from [here](data/orders.json) to a bucket called test-bucket in minio
 
