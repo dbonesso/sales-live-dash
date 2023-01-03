@@ -1,10 +1,10 @@
-# spark-on-k8s
+# Kubernetes pipeline agnostico
 
-In this guide, we will setup spark with minio on kubernetes
+## Aqui vamos descrever os pre-requisitos para rodar o projeto.
 
 ## Pre-requisites
 1. An existing kubernetes cluster
-2. MINIO Installed in kubernetes in the namespace called minio
+2. MINIO Installed in kubernetes in the namespace called minio <code>microk8s kubectl delete namespace minio-operator</>
 3. Optional - Download JDK 17 if testing locally
 4. Optional - Install poetry for testing python code locally
 5. GPU enabled on Kubernetes (if using gpu powered notebook)
