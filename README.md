@@ -288,33 +288,42 @@ Para a construção do MDM, acredita-se que a opção mais viável seria dividir
 
 Quanto às tarefas e sua descrição, encontram-se listadas abaixo:
 
-1. Identificar as fontes de master data
+**1. Identificar as fontes de master data**
 
-2. Identificar os produtores e consumidores de master data
+**2. Identificar os produtores e consumidores de master data**
+
 Apontar quais aplicações produzem os dados mestres identificados no passo anterior e quais aplicações utilizam esses dados.
 
-3. Coletar e analisar os metadados para a master data
+**3. Coletar e analisar os metadados para a master data**
+
 Identificar as entidades, atributos e significado dos dados para todas as fontes do primeiro passo. Pode-se incluir itens como: nome do atributo, data type, valores permitidos, restrições (constraints), valores padrão, dependências, owner e responsável pela manutenção dos dados.
 
-4. Escolher o data steward (no mínimo um)
+**4. Escolher o data steward (no mínimo um)**
+
 Deve-se escolher pessoas com conhecimento da fonte dos dados e habilidade suficiente para determinar como transformar os dados para que se adequem ao formato de master data pré estabelecido. Há uma convenção de que os stewards devam ser responsabilizados como owners de cada fonte de dados mestres, arquitetos dos softwares de MDM e representantes dos usuários de negócio do master data.
 
-5. Criar um time de governança de dados
+**5. Criar um time de governança de dados**
+
 O time deve estabelecer um programa de governança de dados para a empresa. Seus componentes devem ter conhecimento suficiente e autoridade para tomar decisões sobre a manutenção dos dados mestres, auditoria, autorização de mudanças, seu conteúdo e o tempo de armazenamento. Dessa forma, o estabelecimento de políticas deve seguir os propósitos da empresa e se adequar às leis vigentes.
 
-6. Desenvolver um modelo de master data
+**6. Desenvolver um modelo de master data**
+
 Escolher como os registros de dados mestres devem ser, seus atributos, tamanho, data type, valores e mapeamento das diferenças entre o modelo escolhido e as fontes de dados.
 
-7. Escolher as ferramentas
+**7. Escolher as ferramentas**
+
 Existem diversas ferramentas para limpeza, transformação, merging, estruturação e manutenção de dados no mercado. De forma generalizada, pode-se dividir em duas categorias: ferramentas de Customer Data Integration, voltadas aos consumidores, e ferramentas de Product Information Management, voltadas aos produtores. Além desses pontos, deve-se buscar por opções que suporter versionamento, manutenção de hierarquias, suporte a problemas de qualidade de dados, escalabilidade, disponibilidade e performance.
 
-8. Implementar a infraestrutura
+**8. Implementar a infraestrutura**
+
 Uma vez que se implementa a infraestrutura, várias aplicações dependerão de disponibilidade, confiabilidade e escalabilidade do design escolhido. Consequentemente, cria-se o canal de exposição dos dados mestres e processos para gerenciamento e manutenção.
 
-9. Gerar e testar a master data
+**9. Gerar e testar a master data**
+
 Trata-se de uma etapa mais iterativa do processo que requer adequação às regras e definições estabelecidas, além de muita inspeção para garantir o sucesso do projeto.
 
-10. Modificar os sistemas de produção e consumo (opcional)
+**10. Modificar os sistemas de produção e consumo**
+
 Dependendo das escolhas feitas nos passos anteriores, pode-se incluir este passo para adequar os sistemas de dados à implementação do MDM. Também existe a possibilidade dos sistemas utilizarem os dados mestres.
 
-11. Implementar processos de manutenção
+**11. Implementar processos de manutenção**
