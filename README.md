@@ -4,31 +4,38 @@ Esse trabalho é baseado no artigo original [upyter Notebook & Spark on Kubernet
 
 
 ## Aqui vamos descrever os pre-requisitos para rodar o projeto.
-1. Um cluster kubernetes Microk8s
+1. Um cluster kubernetes Microk8s com RBAC habilitado (Role, Subject, RoleBinding) [RBAC](https://medium.com/containerum/configuring-permissions-in-kubernetes-with-rbac-a456a9717d5d)
 2. Instalar o minio um objeto storage compativel com S3
+    
     <code>
     microk8s kubectl create namespace minio-operator
     microk8s kubectl apply -f dev/minio.yaml -n minio
     microk8s kubectl port-forward pod/minio 9000 9090 -n minio
     </code>
+    
 3. Instala o JDK para gerar as imagens localmente
-   <code>
+    
+    <code>
      apt install openjdk-11-jre-headless 
-   </code>
+    </code>
+    
 4. Instala o poetry 
+   
    <code>
      curl -sSL https://install.python-poetry.org | python3 -
    </code>
+   
 5. Cria um namespace ml-data-engg
-    <code>
+   
+   <code>
      microk8s kubectl create namespace ml-data-engg
-    </code>
+   </code>
 
 Para os testes vamos utilizar os dados de...
 
 
 
-## Getting started - Spark Installation locally
+## Instalando o Spark localmente para gerar as imagens docker.
 
 - Download latest version of spark from [here](https://dlcdn.apache.org/spark/spark-3.3.0/spark-3.3.0-bin-hadoop3.tgz). Using spark 3.3.0 with scala-12 and hadoop-3.3 in this example.
 
