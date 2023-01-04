@@ -9,6 +9,7 @@ Esse trabalho é baseado no artigo original [upyter Notebook & Spark on Kubernet
     <code>
     microk8s kubectl create namespace minio-operator
     microk8s kubectl apply -f dev/minio.yaml -n minio
+    microk8s kubectl port-forward pod/minio 9000 9090 -n minio
     </code>
 3. Instala o JDK para gerar as imagens localmente
    <code>
@@ -16,11 +17,11 @@ Esse trabalho é baseado no artigo original [upyter Notebook & Spark on Kubernet
    </code>
 4. Instala o poetry 
    <code>
-   curl -sSL https://install.python-poetry.org | python3 -
+     curl -sSL https://install.python-poetry.org | python3 -
    </code>
 5. Cria um namespace ml-data-engg
     <code>
-    microk8s kubectl create namespace ml-data-engg
+     microk8s kubectl create namespace ml-data-engg
     </code>
 
 Para os testes vamos utilizar os dados de...
