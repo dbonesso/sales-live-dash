@@ -96,7 +96,7 @@ spec:
     spec:
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
-      serviceAccountName: datastoryteller-ml-data-deployer
+      serviceAccountName: ds-deployer
       dnsConfig:
         options:
         - name: ndots
