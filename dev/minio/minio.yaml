@@ -20,6 +20,10 @@ metadata:
   name: minio
   namespace: minio # Change this value to match the namespace metadata.name
 spec:
+  volumes:
+    - name: pvc
+      persistentVolumeClaim:
+        claimName: test-pvc 
   containers:
   - name: minio
     image: quay.io/minio/minio:latest
@@ -28,13 +32,15 @@ spec:
     - -c
     args: 
     - minio server /data --console-address :9090
+    env:
+        # Minio access key and secret key
+        - name: MINIO_ACCESS_KEY
+          value: "minio"
+        - name: MINIO_SECRET_KEY
+          value: "minio123"
     volumeMounts:
     - mountPath: /data
       name: localvolume # Corresponds to the `spec.volumes` Persistent Volume
   nodeSelector:
     kubernetes.io/hostname: storyteller # Specify a node label associated to the Worker Node on which you want to deploy the pod.
-  volumes:
-  - name: localvolume
-    hostPath: # MinIO generally recommends using locally-attached volumes
-      path: /mnt/disk1/data # Specify a path to a local drive or volume on the Kubernetes worker node
-      type: DirectoryOrCreate # The path to the last directory must exist
+ 
