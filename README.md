@@ -4,13 +4,14 @@ Esse trabalho é baseado no artigo original [upyter Notebook & Spark on Kubernet
 
 
 ## Aqui vamos descrever os pre-requisitos para rodar o projeto.
-1. Um cluster kubernetes Microk8s com RBAC habilitado (Role, Subject, RoleBinding) [RBAC](https://medium.com/containerum/configuring-permissions-in-kubernetes-with-rbac-a456a9717d5d)
-2. Instalar o minio um objeto storage compativel com S3
+
+1. Um cluster kubernetes Microk8s com RBAC habilitado (Role, Subject, RoleBinding) [RBAC](https://medium.com/containerum/configuring-permissions-in-kubernetes-with-rbac-a456a9717d5d).Utilizaremos também um volume persistente para habilitar o volume persistente no Microk8s utilize o seguinte código.
+
+2. Cria o pod do minio. Minio é um objeto storage compativel com S3.
     
     <code>
-    microk8s kubectl create namespace minio-operator
-    microk8s kubectl apply -f dev/minio.yaml -n minio
-    microk8s kubectl port-forward pod/minio 9000 9090 -n minio
+    microk8s kubectl apply -f dev/minio/persistentvolumeclaim.yaml 
+    microk8s kubectl create -f dev/minio/minio.yaml
     </code>
     
 3. Instala o JDK para gerar as imagens localmente
