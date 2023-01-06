@@ -11,7 +11,7 @@ Esse trabalho é baseado no artigo original [upyter Notebook & Spark on Kubernet
    microk8s enable hostpath-storage 
    </code>
 
-2. Cria um volume persistencia dos dados. 
+2. Cria um volume persistencia dos dados. O primeiro código verifca os pvc existentes, o segundo código cria o volume persistente.
 
    <code>
    microk8s  kubectl get pv  
