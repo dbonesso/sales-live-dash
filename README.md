@@ -21,10 +21,14 @@ Esse trabalho é baseado no artigo original [upyter Notebook & Spark on Kubernet
     microk8s kubectl apply -f dev/minio/persistentvolumeclaim.yaml 
    </code>
 
-3. Minio é um objeto storage compativel com S3.
+3. Minio é um objeto storage compativel com S3. O primerio código cria o pod que irá executar o minio. O segundo código redireciona a porta para o pod, para acessar a interface do minio no browser o redirecionamento de porta deve ficar executando no terminal.
     
     <code>   
     microk8s kubectl create -f dev/minio/minio.yaml
+    </code>
+    
+    <code>   
+    microk8s kubectl port-forward pod/minio 9000 9090 -n minio
     </code>
     
 3. Instala o JDK para gerar as imagens localmente
