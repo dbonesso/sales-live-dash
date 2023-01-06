@@ -7,6 +7,10 @@ Esse trabalho é baseado no artigo original [upyter Notebook & Spark on Kubernet
 
 1. Um cluster kubernetes Microk8s com RBAC habilitado (Role, Subject, RoleBinding) [RBAC](https://medium.com/containerum/configuring-permissions-in-kubernetes-with-rbac-a456a9717d5d).Utilizaremos também um volume persistente para habilitar o volume persistente no Microk8s utilize o seguinte código.
 
+   <code>
+   microk8s enable hostpath-storage 
+   </code>
+
 2. Cria o pod do minio. Minio é um objeto storage compativel com S3.
     
     <code>
