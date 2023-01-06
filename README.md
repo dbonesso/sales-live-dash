@@ -14,7 +14,7 @@ Esse trabalho é baseado no artigo original [upyter Notebook & Spark on Kubernet
 2. Cria um volume persistencia dos dados. O primeiro código verifca os pvc existentes, o segundo código cria o volume persistente.
 
    <code>
-   microk8s  kubectl get pv  
+   microk8s  kubectl get pvc  
    </code>
    
    <code>
