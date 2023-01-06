@@ -11,10 +11,19 @@ Esse trabalho é baseado no artigo original [upyter Notebook & Spark on Kubernet
    microk8s enable hostpath-storage 
    </code>
 
-2. Cria o pod do minio. Minio é um objeto storage compativel com S3.
-    
-    <code>
+2. Cria um volume persistencia dos dados. 
+
+   <code>
+   microk8s  kubectl get pv  
+   </code>
+   
+   <code>
     microk8s kubectl apply -f dev/minio/persistentvolumeclaim.yaml 
+   </code>
+
+3. Minio é um objeto storage compativel com S3.
+    
+    <code>   
     microk8s kubectl create -f dev/minio/minio.yaml
     </code>
     
