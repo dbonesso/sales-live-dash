@@ -1,10 +1,4 @@
-# Deploys a new Namespace for the MinIO Pod
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: minio # Change this value if you want a different namespace name
-  labels:
-    name: minio # Change this value to match metadata.name
+
 ---
 # Deploys a new MinIO Pod into the metadata.namespace Kubernetes namespace
 #
@@ -23,7 +17,7 @@ spec:
   volumes:
     - name: pvc
       persistentVolumeClaim:
-        claimName: test-pvc 
+        claimName: minio-pvc 
   containers:
   - name: minio
     image: quay.io/minio/minio:latest
@@ -40,7 +34,7 @@ spec:
           value: "minio123"
     volumeMounts:
     - mountPath: /data
-      name: localvolume # Corresponds to the `spec.volumes` Persistent Volume
+      name: pvc # Corresponds to the `spec.volumes` Persistent Volume
   nodeSelector:
     kubernetes.io/hostname: storyteller # Specify a node label associated to the Worker Node on which you want to deploy the pod.
  
