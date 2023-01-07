@@ -49,11 +49,11 @@ Esse trabalho é baseado no artigo original [upyter Notebook & Spark on Kubernet
      microk8s kubectl create namespace ml-data-engg
    </code>
 
-Para os testes vamos utilizar os dados de...
+Este é um conjunto de dados público de comércio eletrônico brasileiro de pedidos feitos na Olist Store. O conjunto de dados contém informações de 100 mil pedidos de 2016 a 2018 feitos em vários marketplaces no Brasil. Seus recursos permitem visualizar um pedido de várias dimensões: desde o status do pedido, preço, pagamento e desempenho do frete até a localização do cliente, atributos do produto e, finalmente, avaliações escritas pelos clientes. Também lançamos um conjunto de dados de geolocalização que relaciona os códigos postais brasileiros às coordenadas lat/lng.
 
 
 
-## Instalando o Spark localmente para gerar as imagens docker.
+## Instalando o Spark localmente (Máquina host) para gerar as imagens docker.
 
 - Download latest version of spark from [here](https://dlcdn.apache.org/spark/spark-3.3.0/spark-3.3.0-bin-hadoop3.tgz). Using spark 3.3.0 with scala-12 and hadoop-3.3 in this example.
 
