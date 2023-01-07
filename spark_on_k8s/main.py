@@ -1,35 +1,22 @@
-import os
-from pyspark import SparkContext
+from pyspark import SparkContext, SparkConf
 from pyspark.sql import SparkSession
 
 
 spark = SparkSession.builder \
-        .appName("spark-test") \
+        .config("spark.hadoop.fs.s3a.endpoint", "http://10.1.112.80:9000") \
+        .config("spark.hadoop.fs.s3a.access.key", "COQX70GCQXBBWGCSISEO") \
+        .config("spark.hadoop.fs.s3a.secret.key", "Y01yFxxj9RYX4nBCGfk3xSr0RsL3T5lanjpVTz1F") \
+        .config("spark.hadoop.fs.s3a.path.style.access", True) \
+        .config("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem") \
+        .config("spark.hadoop.fs.s3a.connection.ssl.enabled","false") \
+        .config("spark.hadoop.com.amazonaws.services.s3.enableV2","true") \
+        .config("spark.hadoop.fs.s3a.aws.credentials.provider","org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider")\
         .getOrCreate()
 
-def load_config(spark_context: SparkContext):
+customer = spark.read.csv("s3a://datalake/olist_customers_dataset.csv")
+customer.show()
+print(customer.columns)
 
-    S3_HOST_URL = os.environ['S3_HOST_URL']
-    S3_ACCESS_KEY = os.environ['AWS_ACCESS_KEY_ID']
-    S3_SECRET_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
-    spark_context._jsc.hadoopConfiguration().set('spark.executor.extraJavaOptions=-Dcom.amazonaws.services.s3.enableV4', 'true')
-    spark_context._jsc.hadoopConfiguration().set('spark.driver.extraJavaOptions=-Dcom.amazonaws.services.s3.enableV4', 'true')
-    spark_context._jsc.hadoopConfiguration().set('spark.hadoop.com.amazonaws.services.s3.enableV4', 'true')
-    spark_context._jsc.hadoopConfiguration().set('fs.s3a.impl', 'org.apache.hadoop.fs.s3a.S3AFileSystem')
-    spark_context._jsc.hadoopConfiguration().set('fs.s3a.multipart.size', '104857600')
-    spark_context._jsc.hadoopConfiguration().set('fs.s3a.path.style.access', 'true')
-    #spark_context._jsc.hadoopConfiguration().set('spark.hadoop.fs.s3a.aws.credentials.provider', 'org.apache.hadoop.fs.s3a.AnonymousAWSCredentialsProvider')
-    spark_context._jsc.hadoopConfiguration().set('fs.s3a.endpoint', S3_HOST_URL)
-    spark_context._jsc.hadoopConfiguration().set('fs.s3a.access.key', S3_ACCESS_KEY)
-    spark_context._jsc.hadoopConfiguration().set('fs.s3a.secret.key', S3_SECRET_KEY)
-    spark_context._jsc.hadoopConfiguration().set('fs.s3a.connection.ssl.enabled', 'false')
+male_users = userdata.select("customer_id", "customer_unique_id")
 
-load_config(spark.sparkContext)
-
-dataFrame = spark.read.json('s3a://test-bucket/*')
-
-average = dataFrame.groupBy("id").agg({'amount': 'avg'})
-
-average.show()
-
-
+#male_users.write.mode("overwrite").parquet("s3a://datalake/maleuserdata/")
