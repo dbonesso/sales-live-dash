@@ -133,10 +133,26 @@ wget https://repo1.maven.org/maven2/joda-time/joda-time/2.12.2/joda-time-2.12.2.
 wget https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-kms/1.12.380/aws-java-sdk-kms-1.12.380.jar
 wget https://repo1.maven.org/maven2/org/postgresql/postgresql/42.5.1/postgresql-42.5.1.jar
 wget https://repo1.maven.org/maven2/org/apache/httpcomponents/client5/httpclient5/5.2.1/httpclient5-5.2.1.jar
-cd ..
-cd ..
-sudo mv spark-3.3.1-bin-hadoop3/ /usr/local/spark-3.3
+
 ``` 
+Vamos aplicar algumas alterações nos dockerfiles. Edite o arquivo em $SPARK_HOME/kubernetes/dockerfiles/spark/bindings/python/Dockerfile. Adicionar entrada para instalar o pyspark.
+
+```
+RUN mkdir ${SPARK_HOME}/python
+RUN apt-get update && \
+    apt install -y python3 python3-pip && \
+    pip3 install --upgrade pip setuptools && \
+    pip3 install pyspark==3.3.0 py4j==0.10.9.5 && \  <-- Add this line
+    # Removed the .cache to save space
+    rm -r /root/.cache && rm -rf /var/cache/apt/*
+```
+![image](https://user-images.githubusercontent.com/922847/211224959-96d68f85-cb1a-4089-935f-90f82e77c77e.png)
+
+Apague a pasta **spark-3.3.1-bin-hadoop3.tgz** e mova a pasta com os jars e arquivos editados para /usr/local/spark-3.3.
+
+```
+sudo mv spark-3.3.1-bin-hadoop3/ /usr/local/spark-3.3
+```
 
 Adicionando spark e poetry ao path:
 
@@ -153,16 +169,7 @@ source ~/.bashrc
 ``` 
 
 
-- Make a few edits to the default dockerfiles and jars provided by spark. Edit the file under $SPARK_HOME/kubernetes/dockerfiles/spark/bindings/python/Dockerfile. Add entry to install pyspark
-```
-RUN mkdir ${SPARK_HOME}/python
-RUN apt-get update && \
-    apt install -y python3 python3-pip && \
-    pip3 install --upgrade pip setuptools && \
-    pip3 install pyspark==3.3.0 py4j==0.10.9.5 && \  <-- Add this line
-    # Removed the .cache to save space
-    rm -r /root/.cache && rm -rf /var/cache/apt/*
-```
+
 
 
 - Add minio secrets and reference it later
