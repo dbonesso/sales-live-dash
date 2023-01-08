@@ -16,59 +16,7 @@ Este é um conjunto de dados público de comércio eletrônico brasileiro de ped
  
 Recurso : [Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
 
-
-
-## Aqui vamos descrever os pre-requisitos para rodar o projeto.
-
-### Hostpath Storage
-
-Um cluster kubernetes Microk8s com RBAC habilitado (Role, Subject, RoleBinding) [RBAC](https://medium.com/containerum/configuring-permissions-in-kubernetes-with-rbac-a456a9717d5d).Utilizaremos também um volume persistente para habilitar o volume persistente no Microk8s utilize o seguinte código.
-
-```
-microk8s enable hostpath-storage 
-```
-
-
-### Minio é um objeto storage compativel com S3.
-    
-```
-sudo microk8s enable minio  
-```
-
-Após a implantação, a saída imprime o nome de usuário e a senha gerados, bem como os serviços criados para o inquilino padrão:
-
-![image](https://user-images.githubusercontent.com/922847/211174113-d6174007-c7f1-43a6-a5ba-e088dc3f3b97.png)
-
-Depois de configurado o minio faça um encaminhamento de porta para o console MinIO com o seguinte comando e siga as instruções: 
-
-```
-sudo microk8s kubectl-minio proxy
-```
-  
-Esse comando vai permitir que você acesse o console web do minio. Para acessar o console esse comando gera um login JWT. A imagem a seguir mostra o console com os aquivos que serão utilizados para o testes do dataset OLIST.
-
-![image](https://user-images.githubusercontent.com/922847/211174372-c18085b6-bcab-43cc-9d48-6375a2494696.png)
-
-Para verifcar os enpoints que estão sendo executados no microk8s basta executar o seguinte comando.
-
-```
-microk8s kubectl get endpoints -A
-```
-
-A porta para api do minio fica exposta na porta 9000
-
-![image](https://user-images.githubusercontent.com/922847/211174478-d80cb46a-d023-4e2e-8a34-80cf8044cd70.png)
-
-O projeto pode ser testado utilizando o exemplo que esta na pasta spark_on_k8s.
-
-#### Teste rapido de execução do Minio 
-
-```
-poetry install
-python3 spark_on_k8s/main.py 
-```
-
-**OBS**: O python deve estar apontando para o virtual env criado pelo poetry.
+# Aqui vamos descrever os pre-requisitos para rodar o projeto.
 
 ## Gerando a imagem que será utilizada para rodar o spark com o Jupyter
     
@@ -79,17 +27,17 @@ Instala o JDK para gerar as imagens localmente
 apt install openjdk-11-jre-headless 
 ```
     
-4. Instala o poetry 
+Instala o poetry. O poetry será utilizado para gerenciar as dependencias python [poetry](https://python-poetry.org/docs/).
    
 ```
 curl -sSL https://install.python-poetry.org | python3 -
 ```
    
-5. Cria um namespace ml-data-engg
+5. Cria um namespace ml-data-engg no cluseter kubernetes
    
-  ```
-     microk8s kubectl create namespace ml-data-engg
-   ```
+```
+microk8s kubectl create namespace ml-data-engg
+```
 
 
 
@@ -153,10 +101,55 @@ chmod +x ./dev/base_spark_image/build_base_image.sh && ./dev/base_spark_image/bu
 chmod +x ./dev/base_notebook_image/build_spark_notebook.sh && ./dev/base_notebook_image/build_spark_notebook.sh
 ```
 
-### Build GPU Spark Notebook
+### Hostpath Storage
+
+Um cluster kubernetes Microk8s com RBAC habilitado (Role, Subject, RoleBinding) [RBAC](https://medium.com/containerum/configuring-permissions-in-kubernetes-with-rbac-a456a9717d5d).Utilizaremos também um volume persistente para habilitar o volume persistente no Microk8s utilize o seguinte código.
+
 ```
-chmod +x ./dev/base_notebook_image/build_gpu_spark_notebook.sh && ./dev/base_notebook_image/build_gpu_spark_notebook.sh
+microk8s enable hostpath-storage 
 ```
+
+
+### Minio é um objeto storage compativel com S3.
+    
+```
+sudo microk8s enable minio  
+```
+
+Após a implantação, a saída imprime o nome de usuário e a senha gerados, bem como os serviços criados para o inquilino padrão:
+
+![image](https://user-images.githubusercontent.com/922847/211174113-d6174007-c7f1-43a6-a5ba-e088dc3f3b97.png)
+
+Depois de configurado o minio faça um encaminhamento de porta para o console MinIO com o seguinte comando e siga as instruções: 
+
+```
+sudo microk8s kubectl-minio proxy
+```
+  
+Esse comando vai permitir que você acesse o console web do minio. Para acessar o console esse comando gera um login JWT. A imagem a seguir mostra o console com os aquivos que serão utilizados para o testes do dataset OLIST.
+
+![image](https://user-images.githubusercontent.com/922847/211174372-c18085b6-bcab-43cc-9d48-6375a2494696.png)
+
+Para verifcar os enpoints que estão sendo executados no microk8s basta executar o seguinte comando.
+
+```
+microk8s kubectl get endpoints -A
+```
+
+A porta para api do minio fica exposta na porta 9000
+
+![image](https://user-images.githubusercontent.com/922847/211174478-d80cb46a-d023-4e2e-8a34-80cf8044cd70.png)
+
+O projeto pode ser testado utilizando o exemplo que esta na pasta spark_on_k8s.
+
+#### Teste rapido de execução do Minio 
+
+```
+poetry install
+python3 spark_on_k8s/main.py 
+```
+
+**OBS**: O python deve estar apontando para o virtual env criado pelo poetry.
 
 
 ### Another option - reuse gpu-jupyter image from iot-salzburg
