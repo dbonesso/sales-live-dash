@@ -110,39 +110,33 @@ list(client.list_objects("datalake"))
 ## Gerando a imagem que será utilizada para rodar o spark com o Jupyter
     
 
-Instala o JDK para gerar as imagens localmente
+### Instala o JDK para gerar as imagens localmente
     
 ```
 apt install openjdk-11-jre-headless 
 ```
     
+### Instalando o Spark localmente (Máquina host) para gerar as imagens docker.
 
-   
-5. Cria um namespace ml-data-engg no cluseter kubernetes
-   
-```
-microk8s kubectl create namespace ml-data-engg
-```
+Baixe a seguinte verão do spark com hadoop 3.3.1 descompacte e adicione as dependencias como: *aws-sdk* and *hadoop-3* (isso garantirá que esses JARs sejam copiados para a imagem do docker que estaríamos construindo na seção build base image).
 
-
-
-## Instalando o Spark localmente (Máquina host) para gerar as imagens docker.
-
-- Download latest version of spark from [here](https://dlcdn.apache.org/spark/spark-3.3.0/spark-3.3.0-bin-hadoop3.tgz). Using spark 3.3.0 with scala-12 and hadoop-3.3 in this example.
-
-
--  Add additional jars needed for aws-sdk and hadoop-3 (this will ensure that these JARs get copied over to docker image that we would be building under the section build base image)
 ``` 
-tar xvzf spark-3.3.0-bin-hadoop3.tgz
-sudo mv spark-3.3.0-bin-hadoop3 /usr/local/spark-3.3
-export SPARK_HOME=/usr/local/spark-3.3
-export PATH=$PATH:$SPARK_HOME/bin
-
-cd /usr/local/spark-3.3/jars
+wget https://dlcdn.apache.org/spark/spark-3.3.1/spark-3.3.1-bin-hadoop3.tgz
+tar xvzf spark-3.3.1-bin-hadoop3.tgz
+cd spark-3.3.1-bin-hadoop3/jars 
 wget https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-aws/3.3.4/hadoop-aws-3.3.4.jar
-wget https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/1.12.298/aws-java-sdk-bundle-1.12.298.jar
-```
- 
+wget https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk/1.11.534/aws-java-sdk-1.11.534.jar
+wget https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk/1.12.380/aws-java-sdk-1.12.380.jar
+wget https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/1.12.380/aws-java-sdk-bundle-1.12.380.jar
+wget https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-s3/1.12.380/aws-java-sdk-s3-1.12.380.jar
+wget https://repo1.maven.org/maven2/joda-time/joda-time/2.12.2/joda-time-2.12.2.jar
+wget https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-kms/1.12.380/aws-java-sdk-kms-1.12.380.jar
+wget https://repo1.maven.org/maven2/org/postgresql/postgresql/42.5.1/postgresql-42.5.1.jar
+wget https://repo1.maven.org/maven2/org/apache/httpcomponents/client5/httpclient5/5.2.1/httpclient5-5.2.1.jar
+sudo mv spark-3.3.1-bin-hadoop3/ /usr/local/spark-3.3
+``` 
+
+
 - Make a few edits to the default dockerfiles and jars provided by spark. Edit the file under $SPARK_HOME/kubernetes/dockerfiles/spark/bindings/python/Dockerfile. Add entry to install pyspark
 ```
 RUN mkdir ${SPARK_HOME}/python
