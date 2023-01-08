@@ -1,6 +1,20 @@
 # Kubernetes pipeline agnostico
 
-Esse trabalho é baseado nos artigos [Cloud-Agnostic Big Data Processing with Kubernetes, Spark and Minio](https://normanlimxk.com/2022/05/04/cloud-agnostic-big-data-processing-with-kubernetes-spark-and-minio/) e [https://github.com/vensav/spark-on-k8s](spark-on-k8s) . Em nossa implementação optamos por utilizar [Microk8s] (https://microk8s.io/) desenvolvido pela Canonical que ao contrário do Minikube suporta multiplos nodes e pode ser utilizando em produção.
+Esse trabalho é baseado nos artigos [Cloud-Agnostic Big Data Processing with Kubernetes, Spark and Minio](https://normanlimxk.com/2022/05/04/cloud-agnostic-big-data-processing-with-kubernetes-spark-and-minio/) e repositório git [https://github.com/vensav/spark-on-k8s](spark-on-k8s) . Em nossa implementação optamos por utilizar [Microk8s] (https://microk8s.io/) desenvolvido pela Canonical que ao contrário do Minikube suporta multiplos nodes e pode ser utilizando em produção. Várias modificações foram feita para adaptar a excecução em um kubernet local.
+
+## 
+
+Esse repositório possibilita rodar um datalake localmente usando **Minio** como object storage e **Spark** para processamento distirubuído. A execução é feita em cluter de nó executando no Microk8s. Os testes foram realizados em uma máquina Ubuntu 22.04.01  com um processador AMD Ryzen 7 5700G e 32 Gigas de memória. A seguir mostramos um desenho macro de arquitetura utilizada.
+
+O conjunto de dados utlizados para o teste é o comércio eletrônico brasileiro de pedidos feitos na Olist Store. Para testar as camadas de armazenamento e processamanto vamos enriquecer os endereços
+
+
+### Conjunto de dados Olist
+
+Este é um conjunto de dados público de comércio eletrônico brasileiro de pedidos feitos na Olist Store. O conjunto de dados contém informações de 100 mil pedidos de 2016 a 2018 feitos em vários marketplaces no Brasil. Seus recursos permitem visualizar um pedido de várias dimensões: desde o status do pedido, preço, pagamento e desempenho do frete até a localização do cliente, atributos do produto e, finalmente, avaliações escritas pelos clientes. Também lançamos um conjunto de dados de geolocalização que relaciona os códigos postais brasileiros às coordenadas lat/lng. 
+ 
+Recurso : [Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
+
 
 
 ## Aqui vamos descrever os pre-requisitos para rodar o projeto.
@@ -76,11 +90,6 @@ curl -sSL https://install.python-poetry.org | python3 -
      microk8s kubectl create namespace ml-data-engg
    ```
 
-### Conjunto de dados Olist
-
-Este é um conjunto de dados público de comércio eletrônico brasileiro de pedidos feitos na Olist Store. O conjunto de dados contém informações de 100 mil pedidos de 2016 a 2018 feitos em vários marketplaces no Brasil. Seus recursos permitem visualizar um pedido de várias dimensões: desde o status do pedido, preço, pagamento e desempenho do frete até a localização do cliente, atributos do produto e, finalmente, avaliações escritas pelos clientes. Também lançamos um conjunto de dados de geolocalização que relaciona os códigos postais brasileiros às coordenadas lat/lng. 
- 
-Recurso : [Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
 
 
 ## Instalando o Spark localmente (Máquina host) para gerar as imagens docker.
