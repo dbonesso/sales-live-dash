@@ -9,29 +9,29 @@ Esse trabalho é baseado no artigo original [upyter Notebook & Spark on Kubernet
 
 Um cluster kubernetes Microk8s com RBAC habilitado (Role, Subject, RoleBinding) [RBAC](https://medium.com/containerum/configuring-permissions-in-kubernetes-with-rbac-a456a9717d5d).Utilizaremos também um volume persistente para habilitar o volume persistente no Microk8s utilize o seguinte código.
 
-  ```
-   microk8s enable hostpath-storage 
-  ```
+```
+microk8s enable hostpath-storage 
+```
 
 
 ### Minio é um objeto storage compativel com S3.
     
-  ```
-  sudo microk8s enable minio  
-  ```
-   
-  Após a implantação, a saída imprime o nome de usuário e a senha gerados, bem como os serviços criados para o inquilino padrão:
-   
-  ![image](https://user-images.githubusercontent.com/922847/211174113-d6174007-c7f1-43a6-a5ba-e088dc3f3b97.png)
+```
+sudo microk8s enable minio  
+```
 
-  Depois de configurado o minio faça um encaminhamento de porta para o console MinIO com o seguinte comando e siga as instruções: 
+Após a implantação, a saída imprime o nome de usuário e a senha gerados, bem como os serviços criados para o inquilino padrão:
+
+![image](https://user-images.githubusercontent.com/922847/211174113-d6174007-c7f1-43a6-a5ba-e088dc3f3b97.png)
+
+Depois de configurado o minio faça um encaminhamento de porta para o console MinIO com o seguinte comando e siga as instruções: 
+
+```
+sudo microk8s kubectl-minio proxy
+```
   
-  ```
-  sudo microk8s kubectl-minio proxy
-  ```
-  
-  Esse comando vai permitir que você acesse o console web do minio. Para acessar o console esse comando gera um login JWT. A imagem a seguir mostra o console com os aquivos que serão utilizados para o testes do dataset OLIST.
-  
+Esse comando vai permitir que você acesse o console web do minio. Para acessar o console esse comando gera um login JWT. A imagem a seguir mostra o console com os aquivos que serão utilizados para o testes do dataset OLIST.
+
 ![image](https://user-images.githubusercontent.com/922847/211174372-c18085b6-bcab-43cc-9d48-6375a2494696.png)
 
 Para verifcar os enpoints que estão sendo executados no microk8s basta executar o seguinte comando.
@@ -40,7 +40,7 @@ Para verifcar os enpoints que estão sendo executados no microk8s basta executar
 microk8s kubectl get endpoints -A
 ```
 
-A porta para api fica exposta na porta 9000
+A porta para api do minio fica exposta na porta 9000
 
 ![image](https://user-images.githubusercontent.com/922847/211174478-d80cb46a-d023-4e2e-8a34-80cf8044cd70.png)
 
@@ -53,7 +53,7 @@ poetry install
 python3 spark_on_k8s/main.py 
 ```
 
-OBS: O python deve estar apontando para o virtual env criado pelo poetry.
+**OBS**: O python deve estar apontando para o virtual env criado pelo poetry.
 
 ## Gerando a imagem que será utilizada para rodar o spark com o Jupyter
     
