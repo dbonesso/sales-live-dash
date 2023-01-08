@@ -16,7 +16,10 @@ Este é um conjunto de dados público de comércio eletrônico brasileiro de ped
  
 Recurso : [Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
 
-# Aqui vamos descrever os pre-requisitos para rodar o projeto.
+# Pre-requisitos para rodar o projeto.
+- Microk8s
+- Minio
+- Imagem Spark com dependecias para Jupyter e Minio
 
 ## Gerando a imagem que será utilizada para rodar o spark com o Jupyter
     
