@@ -1,6 +1,6 @@
 # Kubernetes pipeline agnostico
 
-Esse trabalho é baseado no artigo original [upyter Notebook & Spark on Kubernetes](https://towardsdatascience.com/jupyter-notebook-spark-on-kubernetes-880af7e06351). Em nossa implementação optamos por utilizar [Microk8s] (https://microk8s.io/) desenvolvido pela Canonical que ao contrário do Minikube suporta multiplos nodes e pode ser utilizando em produção.
+Esse trabalho é baseado nos artigos [Cloud-Agnostic Big Data Processing with Kubernetes, Spark and Minio](https://normanlimxk.com/2022/05/04/cloud-agnostic-big-data-processing-with-kubernetes-spark-and-minio/) e [https://github.com/vensav/spark-on-k8s](spark-on-k8s) . Em nossa implementação optamos por utilizar [Microk8s] (https://microk8s.io/) desenvolvido pela Canonical que ao contrário do Minikube suporta multiplos nodes e pode ser utilizando em produção.
 
 
 ## Aqui vamos descrever os pre-requisitos para rodar o projeto.
@@ -57,17 +57,18 @@ python3 spark_on_k8s/main.py
 
 ## Gerando a imagem que será utilizada para rodar o spark com o Jupyter
     
-3. Instala o JDK para gerar as imagens localmente
+
+Instala o JDK para gerar as imagens localmente
     
-    ```
-     apt install openjdk-11-jre-headless 
-    ```
+```
+apt install openjdk-11-jre-headless 
+```
     
 4. Instala o poetry 
    
-   ```
-     curl -sSL https://install.python-poetry.org | python3 -
-   ```
+```
+curl -sSL https://install.python-poetry.org | python3 -
+```
    
 5. Cria um namespace ml-data-engg
    
