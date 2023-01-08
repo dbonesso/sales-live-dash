@@ -1,8 +1,7 @@
-# Kubernetes pipeline agnostico
+# Kubernetes datalake Local
 
 Esse trabalho é baseado nos artigos [Cloud-Agnostic Big Data Processing with Kubernetes, Spark and Minio](https://normanlimxk.com/2022/05/04/cloud-agnostic-big-data-processing-with-kubernetes-spark-and-minio/) e repositório git [https://github.com/vensav/spark-on-k8s](spark-on-k8s) . Em nossa implementação optamos por utilizar [Microk8s] (https://microk8s.io/) desenvolvido pela Canonical que ao contrário do Minikube suporta multiplos nodes e pode ser utilizando em produção. Várias modificações foram feita para adaptar a excecução em um kubernet local.
 
-## 
 
 Esse repositório possibilita rodar um datalake localmente usando **Minio** como object storage e **Spark** para processamento distirubuído. A execução é feita em cluter de nó executando no Microk8s. Os testes foram realizados em uma máquina Ubuntu 22.04.01  com um processador AMD Ryzen 7 5700G e 32 Gigas de memória. A seguir mostramos um desenho macro de arquitetura utilizada.
 
@@ -10,7 +9,7 @@ Esse repositório possibilita rodar um datalake localmente usando **Minio** como
 
 O conjunto de dados utlizados para o teste é o comércio eletrônico brasileiro de pedidos feitos na Olist Store. Para testar as camadas de armazenamento e processamanto vamos enriquecer os endereços delocalização do clientes apartir do cep utilizando a api do google maps.
 
-### Conjunto de dados Olist
+## Conjunto de dados Olist
 
 Este é um conjunto de dados público de comércio eletrônico brasileiro de pedidos feitos na Olist Store. O conjunto de dados contém informações de 100 mil pedidos de 2016 a 2018 feitos em vários marketplaces no Brasil. Seus recursos permitem visualizar um pedido de várias dimensões: desde o status do pedido, preço, pagamento e desempenho do frete até a localização do cliente, atributos do produto e, finalmente, avaliações escritas pelos clientes. Também lançamos um conjunto de dados de geolocalização que relaciona os códigos postais brasileiros às coordenadas lat/lng. 
  
@@ -63,7 +62,15 @@ A porta para api do minio fica exposta na porta 9000
 
 ![image](https://user-images.githubusercontent.com/922847/211174478-d80cb46a-d023-4e2e-8a34-80cf8044cd70.png)
 
-O projeto pode ser testado utilizando o exemplo que esta na pasta spark_on_k8s.
+### Poetry para instalar as dependencias Python do projeto.
+
+Instala o poetry. O poetry será utilizado para gerenciar as dependencias python [poetry](https://python-poetry.org/docs/).
+   
+```
+curl -sSL https://install.python-poetry.org | python3 -
+```
+
+O **Minio** pode ser testado utilizando o exemplo que esta na pasta spark_on_k8s.
 
 #### Teste rapido de execução do Minio 
 
@@ -71,11 +78,36 @@ O projeto pode ser testado utilizando o exemplo que esta na pasta spark_on_k8s.
 poetry install
 python3 spark_on_k8s/main.py 
 ```
-
 **OBS**: O python deve estar apontando para o virtual env criado pelo poetry.
 
+O cógigo a seguir será excutando procurando por bucket chamado *datalake*. Que deve ser criado usando o console ou api.
 
-### Gerando a imagem que será utilizada para rodar o spark com o Jupyter
+
+
+```
+from minio import Minio
+from minio.error import S3Error
+client = Minio(
+    "meu_ip:9000",
+    access_key="sua chave",
+    secret_key="senha",
+    secure= False
+)
+
+# Make 'asiatrip' bucket if not exist.
+found = client.bucket_exists("datalake")
+if not found:
+    client.make_bucket("datalake")
+else:
+    print("Bucket 'datalake' already exists")
+
+
+list(client.list_objects("datalake"))
+```
+
+
+
+## Gerando a imagem que será utilizada para rodar o spark com o Jupyter
     
 
 Instala o JDK para gerar as imagens localmente
@@ -84,11 +116,7 @@ Instala o JDK para gerar as imagens localmente
 apt install openjdk-11-jre-headless 
 ```
     
-Instala o poetry. O poetry será utilizado para gerenciar as dependencias python [poetry](https://python-poetry.org/docs/).
-   
-```
-curl -sSL https://install.python-poetry.org | python3 -
-```
+
    
 5. Cria um namespace ml-data-engg no cluseter kubernetes
    
