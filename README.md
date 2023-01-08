@@ -6,8 +6,7 @@ Esse trabalho é baseado nos artigos [Cloud-Agnostic Big Data Processing with Ku
 
 Esse repositório possibilita rodar um datalake localmente usando **Minio** como object storage e **Spark** para processamento distirubuído. A execução é feita em cluter de nó executando no Microk8s. Os testes foram realizados em uma máquina Ubuntu 22.04.01  com um processador AMD Ryzen 7 5700G e 32 Gigas de memória. A seguir mostramos um desenho macro de arquitetura utilizada.
 
-O conjunto de dados utlizados para o teste é o comércio eletrônico brasileiro de pedidos feitos na Olist Store. Para testar as camadas de armazenamento e processamanto vamos enriquecer os endereços
-
+O conjunto de dados utlizados para o teste é o comércio eletrônico brasileiro de pedidos feitos na Olist Store. Para testar as camadas de armazenamento e processamanto vamos enriquecer os endereços delocalização do clientes apartir do cep utilizando a api do google maps.
 
 ### Conjunto de dados Olist
 
