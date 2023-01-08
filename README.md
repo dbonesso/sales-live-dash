@@ -16,12 +16,66 @@ Este é um conjunto de dados público de comércio eletrônico brasileiro de ped
  
 Recurso : [Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
 
-# Pre-requisitos para rodar o projeto.
+## Pre-requisitos para rodar o projeto.
 - Microk8s
 - Minio
 - Imagem Spark com dependecias para Jupyter e Minio
 
-## Gerando a imagem que será utilizada para rodar o spark com o Jupyter
+
+### Instalando Microk8s objeto
+
+```
+sudo snap install microk8s --classic
+```
+
+Habilita o volume persistente no Microk8s utilize o seguinte código.
+
+```
+microk8s enable hostpath-storage 
+```
+
+### Instalando o add-on do Minio objeto storage compativel com S3.
+
+
+```
+sudo microk8s enable minio
+```
+Após a implantação, a saída imprime o nome de usuário e a senha gerados, bem como os serviços criados para o inquilino padrão:
+
+![image](https://user-images.githubusercontent.com/922847/211174113-d6174007-c7f1-43a6-a5ba-e088dc3f3b97.png)
+
+Depois de configurado o minio faça um encaminhamento de porta para o console MinIO com o seguinte comando e siga as instruções: 
+
+```
+sudo microk8s kubectl-minio proxy
+```
+  
+Esse comando vai permitir que você acesse o console web do minio. Para acessar o console esse comando gera um login JWT. A imagem a seguir mostra o console com os aquivos que serão utilizados para o testes do dataset OLIST.
+
+![image](https://user-images.githubusercontent.com/922847/211174372-c18085b6-bcab-43cc-9d48-6375a2494696.png)
+
+Para verifcar os enpoints que estão sendo executados no microk8s basta executar o seguinte comando.
+
+```
+microk8s kubectl get endpoints -A
+```
+A porta para api do minio fica exposta na porta 9000
+
+![image](https://user-images.githubusercontent.com/922847/211174478-d80cb46a-d023-4e2e-8a34-80cf8044cd70.png)
+
+O projeto pode ser testado utilizando o exemplo que esta na pasta spark_on_k8s.
+
+#### Teste rapido de execução do Minio 
+
+```
+poetry install
+python3 spark_on_k8s/main.py 
+```
+
+**OBS**: O python deve estar apontando para o virtual env criado pelo poetry.
+
+
+### Gerando a imagem que será utilizada para rodar o spark com o Jupyter
     
 
 Instala o JDK para gerar as imagens localmente
@@ -105,54 +159,6 @@ chmod +x ./dev/base_notebook_image/build_spark_notebook.sh && ./dev/base_noteboo
 ```
 
 ### Hostpath Storage
-
-Um cluster kubernetes Microk8s com RBAC habilitado (Role, Subject, RoleBinding) [RBAC](https://medium.com/containerum/configuring-permissions-in-kubernetes-with-rbac-a456a9717d5d).Utilizaremos também um volume persistente para habilitar o volume persistente no Microk8s utilize o seguinte código.
-
-```
-microk8s enable hostpath-storage 
-```
-
-
-### Minio é um objeto storage compativel com S3.
-    
-```
-sudo microk8s enable minio  
-```
-
-Após a implantação, a saída imprime o nome de usuário e a senha gerados, bem como os serviços criados para o inquilino padrão:
-
-![image](https://user-images.githubusercontent.com/922847/211174113-d6174007-c7f1-43a6-a5ba-e088dc3f3b97.png)
-
-Depois de configurado o minio faça um encaminhamento de porta para o console MinIO com o seguinte comando e siga as instruções: 
-
-```
-sudo microk8s kubectl-minio proxy
-```
-  
-Esse comando vai permitir que você acesse o console web do minio. Para acessar o console esse comando gera um login JWT. A imagem a seguir mostra o console com os aquivos que serão utilizados para o testes do dataset OLIST.
-
-![image](https://user-images.githubusercontent.com/922847/211174372-c18085b6-bcab-43cc-9d48-6375a2494696.png)
-
-Para verifcar os enpoints que estão sendo executados no microk8s basta executar o seguinte comando.
-
-```
-microk8s kubectl get endpoints -A
-```
-
-A porta para api do minio fica exposta na porta 9000
-
-![image](https://user-images.githubusercontent.com/922847/211174478-d80cb46a-d023-4e2e-8a34-80cf8044cd70.png)
-
-O projeto pode ser testado utilizando o exemplo que esta na pasta spark_on_k8s.
-
-#### Teste rapido de execução do Minio 
-
-```
-poetry install
-python3 spark_on_k8s/main.py 
-```
-
-**OBS**: O python deve estar apontando para o virtual env criado pelo poetry.
 
 
 ### Another option - reuse gpu-jupyter image from iot-salzburg
