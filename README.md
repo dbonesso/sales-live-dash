@@ -136,6 +136,20 @@ wget https://repo1.maven.org/maven2/org/apache/httpcomponents/client5/httpclient
 sudo mv spark-3.3.1-bin-hadoop3/ /usr/local/spark-3.3
 ``` 
 
+Adicionando spark e poetry ao path:
+
+``` 
+echo 'export SPARK_HOME=/usr/local/spark-3.3'    >> ~/.bashrc
+echo 'export PATH="$PATH:$SPARK_HOME/bin:$PATH"' >> ~/.bashrc
+echo 'export POETRY_HOME="$HOME/.local/bin"'     >> ~/.bashrc
+``` 
+
+Recarrega o ~/.bashrc
+
+``` 
+source ~/.bashrc
+``` 
+
 
 - Make a few edits to the default dockerfiles and jars provided by spark. Edit the file under $SPARK_HOME/kubernetes/dockerfiles/spark/bindings/python/Dockerfile. Add entry to install pyspark
 ```
