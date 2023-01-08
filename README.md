@@ -133,6 +133,8 @@ wget https://repo1.maven.org/maven2/joda-time/joda-time/2.12.2/joda-time-2.12.2.
 wget https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-kms/1.12.380/aws-java-sdk-kms-1.12.380.jar
 wget https://repo1.maven.org/maven2/org/postgresql/postgresql/42.5.1/postgresql-42.5.1.jar
 wget https://repo1.maven.org/maven2/org/apache/httpcomponents/client5/httpclient5/5.2.1/httpclient5-5.2.1.jar
+cd ..
+cd ..
 sudo mv spark-3.3.1-bin-hadoop3/ /usr/local/spark-3.3
 ``` 
 
