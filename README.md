@@ -9,16 +9,16 @@ Esse trabalho é baseado no artigo original [upyter Notebook & Spark on Kubernet
 
 Um cluster kubernetes Microk8s com RBAC habilitado (Role, Subject, RoleBinding) [RBAC](https://medium.com/containerum/configuring-permissions-in-kubernetes-with-rbac-a456a9717d5d).Utilizaremos também um volume persistente para habilitar o volume persistente no Microk8s utilize o seguinte código.
 
-   <code>
+  ```
    microk8s enable hostpath-storage 
-   </code>
+  ```
 
 
 ### Minio é um objeto storage compativel com S3.
     
-  <code>
+  ```
   sudo microk8s enable minio  
-  </code>
+  ```
    
   Após a implantação, a saída imprime o nome de usuário e a senha gerados, bem como os serviços criados para o inquilino padrão:
    
@@ -26,18 +26,19 @@ Um cluster kubernetes Microk8s com RBAC habilitado (Role, Subject, RoleBinding) 
 
   Depois de configurado o minio faça um encaminhamento de porta para o console MinIO com o seguinte comando e siga as instruções: 
   
-  <code>
+  ```
   sudo microk8s kubectl-minio proxy
-  </code>
+  ```
   
   Esse comando vai permitir que você acesse o console web do minio. Para acessar o console esse comando gera um login JWT. A imagem a seguir mostra o console com os aquivos que serão utilizados para o testes do dataset OLIST.
   
 ![image](https://user-images.githubusercontent.com/922847/211174372-c18085b6-bcab-43cc-9d48-6375a2494696.png)
 
 Para verifcar os enpoints que estão sendo executados no microk8s basta executar o seguinte comando.
-<code>
+
+```
 microk8s kubectl get endpoints -A
-</code>
+```
 
 A porta para api fica exposta na porta 9000
 
@@ -46,39 +47,39 @@ A porta para api fica exposta na porta 9000
 O projeto pode ser testado utilizando o exemplo que esta na pasta spark_on_k8s.
 
 #### Teste rapido de execução do Minio 
+
 ```
 poetry install
 python3 spark_on_k8s/main.py 
 ```
+
 OBS: O python deve estar apontando para o virtual env criado pelo poetry.
 
 ## Gerando a imagem que será utilizada para rodar o spark com o Jupyter
     
 3. Instala o JDK para gerar as imagens localmente
     
-    <code>
+    ```
      apt install openjdk-11-jre-headless 
-    </code>
+    ```
     
 4. Instala o poetry 
    
-   <code>
+   ```
      curl -sSL https://install.python-poetry.org | python3 -
-   </code>
+   ```
    
 5. Cria um namespace ml-data-engg
    
-   <code>
+  ```
      microk8s kubectl create namespace ml-data-engg
-   </code>
+   ```
 
 ### Conjunto de dados Olist
 
 Este é um conjunto de dados público de comércio eletrônico brasileiro de pedidos feitos na Olist Store. O conjunto de dados contém informações de 100 mil pedidos de 2016 a 2018 feitos em vários marketplaces no Brasil. Seus recursos permitem visualizar um pedido de várias dimensões: desde o status do pedido, preço, pagamento e desempenho do frete até a localização do cliente, atributos do produto e, finalmente, avaliações escritas pelos clientes. Também lançamos um conjunto de dados de geolocalização que relaciona os códigos postais brasileiros às coordenadas lat/lng. 
-
-Recurso : https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
-
-
+ 
+Recurso : [Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
 
 
 ## Instalando o Spark localmente (Máquina host) para gerar as imagens docker.
