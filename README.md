@@ -173,6 +173,30 @@ poetry install
 export SPARK_LOCAL_IP=<IP da máquina host>
 spark-submit tests/spark_test.py --master=local[1]
 ```
+Resultado dos testes do executa a leitura de um arquivo csv utilizando spark e armazenado no Minio.
+```
+from pyspark import SparkContext, SparkConf
+from pyspark.sql import SparkSession
+
+
+spark = SparkSession.builder \
+        .config("spark.hadoop.fs.s3a.endpoint", "http://10.1.112.89:9000") \
+        .config("spark.hadoop.fs.s3a.access.key", "COQX70GCQXBBWGCSISEO") \
+        .config("spark.hadoop.fs.s3a.secret.key", "Y01yFxxj9RYX4nBCGfk3xSr0RsL3T5lanjpVTz1F") \
+        .config("spark.hadoop.fs.s3a.path.style.access", True) \
+        .config("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem") \
+        .config("spark.hadoop.fs.s3a.connection.ssl.enabled","false") \
+        .config("spark.hadoop.com.amazonaws.services.s3.enableV2","true") \
+        .config("spark.hadoop.fs.s3a.aws.credentials.provider","org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider")\
+        .getOrCreate()
+
+customer = spark.read.csv("s3a://datalake/olist_customers_dataset.csv")
+customer.show()
+print(customer.columns)
+```
+
+![image](https://user-images.githubusercontent.com/922847/211315082-ca36d857-1ca8-404e-95d6-6766453ad683.png)
+
 
 ### Build Base Image
 ```
