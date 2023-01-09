@@ -230,8 +230,8 @@ microk8s kubectl create namespace ml-data-engg
 Vamos fazer o deploy do spark-notebook no cluster.
 
 ```
-kubectl apply -f dev/service-account.yaml
-kubectl apply -f dev/spark-notebook.yaml -n ml-data-engg
+kubectl apply -f image/service-account.yaml
+kubectl apply -f image/spark-notebook.yaml -n ml-data-engg
 
 ```
 See sample notebook under [here](notebook/spark-k8s-test.ipynb). If everything works fine, you should get a monitor like below
