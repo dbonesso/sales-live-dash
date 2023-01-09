@@ -130,6 +130,7 @@ wget https://repo1.maven.org/maven2/joda-time/joda-time/2.12.2/joda-time-2.12.2.
 wget https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-kms/1.12.380/aws-java-sdk-kms-1.12.380.jar
 wget https://repo1.maven.org/maven2/org/postgresql/postgresql/42.5.1/postgresql-42.5.1.jar
 wget https://repo1.maven.org/maven2/org/apache/httpcomponents/client5/httpclient5/5.2.1/httpclient5-5.2.1.jar
+wget https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-core/1.12.380/aws-java-sdk-core-1.12.380.jar
 
 ``` 
 Vamos aplicar algumas alterações nos dockerfiles. Edite o arquivo em $SPARK_HOME/kubernetes/dockerfiles/spark/bindings/python/Dockerfile. Adicionar entrada para instalar o pyspark.
