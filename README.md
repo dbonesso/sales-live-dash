@@ -211,7 +211,7 @@ chmod +x ./dev/base_spark_image/build_base_image.sh
 ```
 
 
-### Build Spark/Notebook Image
+### Build imagem Spark/Notebook 
 
 Da mesma forma do passo anterior vamos fazer o build da imagem com spark com jupyter.
 
@@ -220,27 +220,14 @@ chmod +x ./dev/base_notebook_image/build_spark_notebook.sh
 ./image-files/base_notebook_image/build_spark_notebook.sh
 ```
 
-### Hostpath Storage
+## Deploy do spark e spark/notebook em prod
 
+Primeiro vamos criar um namespace **ml-data-engg**
 
-### Another option - reuse gpu-jupyter image from iot-salzburg
-- Refer: [iot-salzburg/gpu-jupyter](https://github.com/iot-salzburg/gpu-jupyter#build-your-own-image)
 ```
-cd $HOME
-git clone https://github.com/iot-salzburg/gpu-jupyter.git
-git checkout v1.4_cuda-11.6_ubuntu-20.04
-./generate-Dockerfile.sh --slim --python-only
-cp -r .build <Path to current project>
-```
-- Add Spark related dependencies to it and run
-```
-docker build -t datastoryteller/gpu-jupyter-spark:v1.4_cuda-11.7_ubuntu-22.04_slim .build/
-docker push datastoryteller/gpu-jupyter-spark:v1.4_cuda-11.7_ubuntu-22.04_slim
+microk8s kubectl create namespace ml-data-engg
 ```
 
-
-## Deploy Spark Notebook on Kubernetes
-Using namepsace ml-data-engg. Change namespace as needed for your use case. Make sure the namespace exists.
 Inspired by blog posted by [Itay Bittan](https://towardsdatascience.com/jupyter-notebook-spark-on-kubernetes-880af7e06351)
 - Select `datastoryteller/spark-notebook:3.3.0-scala_2.12-jre_17-slim-bullseye` for regular spark-notebook or
 - `datastoryteller/gpu-spark-notebook:v1.4_cuda-11.7_ubuntu-22.04_slim_spark-3.3` for gpu enabled notebook. In this case make sure you are deploying on a node with gpu
