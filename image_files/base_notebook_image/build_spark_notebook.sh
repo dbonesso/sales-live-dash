@@ -11,3 +11,4 @@ docker build --build-arg IMAGE_TAG=${SPARK_VERSION}-${SCALA_VERSION}-jre_${DOCKE
 
 docker tag datastoryteller/spark-notebook:latest datastoryteller/spark-notebook:${SPARK_VERSION}-${SCALA_VERSION}-jre_${DOCKERIMAGETAG}-${BASE_OS}
 docker push datastoryteller/spark-notebook:${SPARK_VERSION}-${SCALA_VERSION}-jre_${DOCKERIMAGETAG}-${BASE_OS}
+
