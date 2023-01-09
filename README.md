@@ -198,9 +198,16 @@ print(customer.columns)
 ![image](https://user-images.githubusercontent.com/922847/211315082-ca36d857-1ca8-404e-95d6-6766453ad683.png)
 
 
-### Build Base Image
+### Build da imagem que será utilizada no Cluster.
+
+No script de geração da imagem estamos apontando para um docker hub privado datastoryteller, você deve editar esse script e apontar para seu proprio docker hub.
+
+![image](https://user-images.githubusercontent.com/922847/211321366-d51c41c1-8022-47fc-9bfa-a3885ca825d3.png)
+
+
 ```
-chmod +x ./dev/base_spark_image/build_base_image.sh && ./dev/base_spark_image/build_base_image.sh
+chmod +x ./dev/base_spark_image/build_base_image.sh 
+./dev/base_spark_image/build_base_image.sh
 ```
 
 
