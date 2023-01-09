@@ -76,13 +76,10 @@ O **Minio** pode ser testado utilizando o exemplo que esta na pasta spark_on_k8s
 
 ```
 poetry install
-python3 spark_on_k8s/main.py 
+python3 tests/minio_test.py 
 ```
 **OBS**: O python deve estar apontando para o virtual env criado pelo poetry.
-
 O cógigo a seguir será excutando procurando por bucket chamado *datalake*. Que deve ser criado usando o console ou api.
-
-
 
 ```
 from minio import Minio
@@ -168,28 +165,12 @@ Recarrega o ~/.bashrc
 source ~/.bashrc
 ``` 
 
+## Testando a configuração local do spark
 
-
-
-
-- Add minio secrets and reference it later
-```
-microk8s kubectl create secret generic minio-api-client-credentials  \
-    --from-literal=MINIO_HOST_URL="<MINIO_SVC_HOST_NAME>.minio:9000" \
-    --from-literal=MINIO_HTTP_ENDPOINT="http://<MINIO_SVC_HOST_NAME>.minio:9000" \
-    --from-literal=MINIO_ACCESS_KEY="YourAccessKey" \
-    --from-literal=MINIO_SECRET_KEY="YourSecretKey" \
-    -n ml-data-engg 
-```
-
-
-## Local testing and base images
-
-### Quick Test Locally (to check if spark JARs and minio are working fine)
 ```
 poetry install
-export SPARK_LOCAL_IP=<Local IP>
-spark-submit spark_on_k8s/main.py --master=local[1]
+export SPARK_LOCAL_IP=<IP da máquina host>
+spark-submit tests/spark_test.py --master=local[1]
 ```
 
 ### Build Base Image
