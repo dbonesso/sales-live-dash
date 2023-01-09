@@ -227,14 +227,12 @@ Primeiro vamos criar um namespace **ml-data-engg**
 ```
 microk8s kubectl create namespace ml-data-engg
 ```
+Vamos fazer o deploy do spark-notebook no cluster.
 
-Inspired by blog posted by [Itay Bittan](https://towardsdatascience.com/jupyter-notebook-spark-on-kubernetes-880af7e06351)
-- Select `datastoryteller/spark-notebook:3.3.0-scala_2.12-jre_17-slim-bullseye` for regular spark-notebook or
-- `datastoryteller/gpu-spark-notebook:v1.4_cuda-11.7_ubuntu-22.04_slim_spark-3.3` for gpu enabled notebook. In this case make sure you are deploying on a node with gpu
 ```
 kubectl apply -f dev/service-account.yaml
 kubectl apply -f dev/spark-notebook.yaml -n ml-data-engg
-kubectl apply -f dev/gpu-spark-notebook.yaml -n ml-data-engg
+
 ```
 See sample notebook under [here](notebook/spark-k8s-test.ipynb). If everything works fine, you should get a monitor like below
 
