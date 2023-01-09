@@ -2,7 +2,6 @@
 
 Esse trabalho é baseado nos artigos [Cloud-Agnostic Big Data Processing with Kubernetes, Spark and Minio](https://normanlimxk.com/2022/05/04/cloud-agnostic-big-data-processing-with-kubernetes-spark-and-minio/) e repositório git [https://github.com/vensav/spark-on-k8s](spark-on-k8s) . Em nossa implementação optamos por utilizar [Microk8s] (https://microk8s.io/) desenvolvido pela Canonical que ao contrário do Minikube suporta multiplos nodes e pode ser utilizando em produção. Várias modificações foram feita para adaptar a excecução em um kubernet local.
 
-
 Esse repositório possibilita rodar um datalake localmente usando **Minio** como object storage e **Spark** para processamento distirubuído. A execução é feita em cluter de nó executando no Microk8s. Os testes foram realizados em uma máquina Ubuntu 22.04.01  com um processador AMD Ryzen 7 5700G e 32 Gigas de memória. A seguir mostramos um desenho macro de arquitetura utilizada.
 
 ![Captura de Tela 2023-01-08 às 10 04 24](https://user-images.githubusercontent.com/922847/211197556-67e119a4-ae96-479a-b1ba-abc9c70f0b86.png)
@@ -305,7 +304,27 @@ $SPARK_HOME/bin/spark-submit \
     --conf spark.kubernetes.executor.secretKeyRef.AWS_ACCESS_KEY_ID=minio-api-client-credentials:MINIO_ACCESS_KEY \
     --conf spark.kubernetes.executor.secretKeyRef.AWS_SECRET_ACCESS_KEY=minio-api-client-credentials:MINIO_SECRET_KEY \
      local:///app/spark_on_k8s/main.py
+     
 ```
+
+## Habilitando os dashboards do kubernetes
+
+
+Por último para ajudar a monitorar o hambiente vamos habilitar o painel padrão do Kubernetes para acompanhar de maneira conveniente as atividade e uso de recursos do MicroK8s.
+
+```
+microk8s enable dashboard
+```
+
+Para fazer login no Dashboard, você precisará do token de acesso (a menos que o RBAC tenha
+também foi ativado). Isso é gerado aleatoriamente na implantação, portanto, alguns comandos
+são necessários para recuperá-lo:
+
+```
+microk8s kubectl create token default
+```
+
+
 ## Queries
 
 As queries e seus resultados estão presentes na pasta queries.
