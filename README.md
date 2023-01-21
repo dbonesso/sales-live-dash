@@ -423,7 +423,8 @@ Após estudo das ferramentas de Data Governance exposto acima, optou-se por pros
 
 Para a construção do MDM, acredita-se que a opção mais viável seria dividir o projeto em seis sprints de quinze dias, no mínimo. Dessa forma, pode-se observar na figura abaixo um esquema do planejamento das etapas e atividades:
 
-![mdm_schedule](mdm_data_governance_images/cronograma_da_construcao_do_MDM.png)
+![image](https://user-images.githubusercontent.com/922847/213887726-44511b5d-baf9-41e2-a9fc-1af127dc11bc.png)
+
 
 Quanto às tarefas e sua descrição, encontram-se listadas abaixo:
 
