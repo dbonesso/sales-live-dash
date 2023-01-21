@@ -412,7 +412,8 @@ O DataHub é uma plataforma de governança de dados low code com foco na catalog
 
 De acordo com os argumentos apresentados na seção anterior, apresenta-se abaixo a tabela comparativa entre as ferramentas citadas e suas funcionalidades:
 
-![data_governance_table](mdm_data_governance_images/data_governance_tools.jpeg)
+![image](https://user-images.githubusercontent.com/922847/213887696-2c566616-e942-4355-9f97-8a30b9e24128.png)
+
 
 ## Recomendação dos integrantes do grupo
 
