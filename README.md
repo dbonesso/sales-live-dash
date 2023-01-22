@@ -26,6 +26,18 @@ Recurso : [Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
 sudo snap install microk8s --classic
 ```
 
+Habilitando MetalLIB
+
+```
+microk8s enable metallb:192.168.1.200-192.168.1.220
+```
+
+Habilitando Ingress
+
+```
+microk8s enable ingress
+```
+
 Habilita o volume persistente no Microk8s utilize o seguinte código.
 
 ```
@@ -78,7 +90,7 @@ poetry install
 python3 tests/minio_test.py 
 ```
 **OBS**: O python deve estar apontando para o virtual env criado pelo poetry.
-O cógigo a seguir será excutando procurando por bucket chamado *datalake*. Que deve ser criado usando o console ou api.
+O cógigo a seguir será excutando procurando por bucket chamado *datalake*. Que deve ser criado usando o console ou api. O **meu_ip** deve ser alterado pelo enfpoit que aponta para o minio.
 
 ```
 from minio import Minio
@@ -467,3 +479,24 @@ Trata-se de uma etapa mais iterativa do processo que requer adequação às regr
 Dependendo das escolhas feitas nos passos anteriores, pode-se incluir este passo para adequar os sistemas de dados à implementação do MDM. Também existe a possibilidade dos sistemas utilizarem os dados mestres.
 
 **11. Implementar processos de manutenção**
+
+
+## Comandos uteis
+
+Retorna os endpoints
+
+```
+ microk8s kubectl get endpoints -A
+```
+
+Reset kubernetes necessita de usuário administrador
+
+```
+ microk8s reset
+```
+
+## Configurando Ingress
+
+```
+ microk8s enable metallb:10.1.112.50-10.1.112.100
+```
