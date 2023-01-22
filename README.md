@@ -217,6 +217,7 @@ customer = spark.read.csv("s3a://datalake/bronze/olist/olist_customers_dataset.c
 customer.show()
 print(customer.columns)
 ```
+A imagem a seguir mostra a saida do comando print.
 
 ![image](https://user-images.githubusercontent.com/922847/211315082-ca36d857-1ca8-404e-95d6-6766453ad683.png)
 
