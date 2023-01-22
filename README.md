@@ -33,9 +33,12 @@ sudo snap install microk8s --classic
 ```
 microk8s dashboard-proxy
 ```
+Ao executar o comando acima será mostrada a seguinte tela com o endereço para acessar o dashboard além do token de acesso:
+
+![image](https://user-images.githubusercontent.com/922847/213939890-c40f6679-1bfd-44f3-bfea-85362a7e70ab.png)
 
 
-Habilitando Ingress
+## Habilitando Ingress
 
 ```
 microk8s enable ingress
@@ -43,7 +46,7 @@ microk8s enable ingress
 
 https://benbrougher.tech/posts/microk8s-ingress/
 
-Habilita o volume persistente no Microk8s utilize o seguinte código.
+## Habilita o volume persistente no Microk8s utilize o seguinte código.
 
 ```
 microk8s enable hostpath-storage 
