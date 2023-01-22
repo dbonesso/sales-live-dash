@@ -26,17 +26,22 @@ Recurso : [Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
 sudo snap install microk8s --classic
 ```
 
-Habilitando MetalLIB
+## Interacting with a kubernetes cluster
+
+**Kubernetes Dashboard** é uma interface de usuário que pode ser acessada via web. Pode ser utilizada para fazer o deploy de aplicações conterizadas no cluster Kubernetes, troubleshoot dos containers, e controlar os recursos do cluster. Para exeutar o console no microk8s basta executar:
 
 ```
-microk8s enable metallb:192.168.1.200-192.168.1.220
+microk8s dashboard-proxy
 ```
+
 
 Habilitando Ingress
 
 ```
 microk8s enable ingress
 ```
+
+https://benbrougher.tech/posts/microk8s-ingress/
 
 Habilita o volume persistente no Microk8s utilize o seguinte código.
 
