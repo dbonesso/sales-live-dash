@@ -62,13 +62,17 @@ Após a implantação, a saída imprime o nome de usuário e a senha gerados, be
 
 ![image](https://user-images.githubusercontent.com/922847/211174113-d6174007-c7f1-43a6-a5ba-e088dc3f3b97.png)
 
-Depois de configurado o minio faça um encaminhamento de porta para o console MinIO com o seguinte comando e siga as instruções: 
+Depois de configurado o minio faça um encaminhamento de porta para o console web do MinIO com o seguinte comando: 
 
 ```
 sudo microk8s kubectl-minio proxy
 ```
   
-Esse comando vai permitir que você acesse o console web do minio. Para acessar o console esse comando gera um login JWT. A imagem a seguir mostra o console com os aquivos que serão utilizados para o testes do dataset OLIST.
+A imagem a seguir mostra um login JWT e o endereço para acessar o console web. 
+
+![image](https://user-images.githubusercontent.com/922847/213941181-2e4d2d74-d845-40d5-b433-0132f0b72999.png)
+
+A imagem a seguir mostra o console com os aquivos que serão utilizados para o testes do dataset OLIST.
 
 ![image](https://user-images.githubusercontent.com/922847/211174372-c18085b6-bcab-43cc-9d48-6375a2494696.png)
 
