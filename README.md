@@ -196,7 +196,7 @@ poetry install
 export SPARK_LOCAL_IP=<IP da máquina host>
 spark-submit tests/spark_test.py --master=local[1]
 ```
-Resultado dos testes do executa a leitura de um arquivo csv utilizando spark e armazenado no Minio.
+O script a seguir testa a leitura de um arquivo csv utilizando spark e armazenado no Minio. Note que o arquivo esta na area bronze do datalake.
 ```
 from pyspark import SparkContext, SparkConf
 from pyspark.sql import SparkSession
@@ -262,7 +262,7 @@ microk8s kubectl apply -f image/spark-notebook.yaml -n ml-data-engg
 
 ```
 
-See sample notebook under [here](notebook/spark-k8s-test.ipynb). If everything works fine, you should get a monitor like below
+Veja o exemplo de um notebook [here](notebook/spark-k8s-test.ipynb). Se tudo estiver certo você consiguira ver o monitor spark na imagem a seguir.
 
 ![jupyter-sparkmonitor](notebook/sparkmonitor.png)
 
