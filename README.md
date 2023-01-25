@@ -38,14 +38,6 @@ Ao executar o comando acima será mostrada a seguinte tela com o endereço para 
 ![image](https://user-images.githubusercontent.com/922847/213939890-c40f6679-1bfd-44f3-bfea-85362a7e70ab.png)
 
 
-## Habilitando Ingress
-
-```
-microk8s enable ingress
-```
-
-https://benbrougher.tech/posts/microk8s-ingress/
-
 ## Habilita o volume persistente no Microk8s utilize o seguinte código.
 
 ```
@@ -102,7 +94,15 @@ poetry install
 python3 tests/minio_test.py 
 ```
 **OBS**: O python deve estar apontando para o virtual env criado pelo poetry.
-O cógigo a seguir será excutando procurando por bucket chamado *datalake*. Que deve ser criado usando o console ou api. O **meu_ip** deve ser alterado pelo enfpoit que aponta para o minio.
+O cógigo a seguir será excutando procurando por bucket chamado *datalake*. Que deve ser criado usando o console ou api. O **meu_ip** deve ser alterado pelo enfpoit que aponta para o minio. Para obter o ip rode o comando a seguir:
+
+```
+microk8s kubectl  get endpoints -A
+```
+
+
+Utilize o ip do servico **minio** que aponta para a porta 9000 
+
 
 ```
 from minio import Minio
@@ -514,9 +514,17 @@ Pega todos os pods do namespace minio-operator
 microk8s.kubectl -n minio-operator get pods
 ```
 
+```
+microk8s.kubectl  -n minio-operator describe service console-service
+```
 
 ## Configurando Ingress
 
-```
- microk8s enable metallb:10.1.112.50-10.1.112.100
-```
+O que ta faltando eu fazer configura o ingress para que o servico va para porta certa sem colocar o ip
+
+
+https://medium.com/techlogs/setting-up-minio-in-k8s-43e9ec340b40
+
+https://docs.rafay.co/learn/quickstart/kubernetes/ingress/#__tabbed_1_3
+
+https://github.com/minio/minio/discussions/15147
