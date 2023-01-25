@@ -508,6 +508,13 @@ Reset kubernetes necessita de usuário administrador
  microk8s reset
 ```
 
+Pega todos os pods do namespace minio-operator
+
+```
+microk8s.kubectl -n minio-operator get pods
+```
+
+
 ## Configurando Ingress
 
 ```
