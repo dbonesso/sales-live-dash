@@ -1,17 +1,15 @@
 [tool.poetry]
-name = "spark-on-k8s"
+name = "sales-live-dash"
 version = "0.1.0"
 description = ""
-authors = ["Kartik Ramasubramanian <r.kartik@berkeley.edu>"]
+authors = ["Diego Bonesso <pixelrama@pm.me>"]
+readme = "README.md"
+packages = [{include = "sales_live_dash"}]
 
 [tool.poetry.dependencies]
-python = "^3.9"
-pyspark = "^3.3.0"
-minio = "^7.1.13"
+python = "^3.11"
 
-[tool.poetry.dev-dependencies]
-pytest = "^5.2"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
