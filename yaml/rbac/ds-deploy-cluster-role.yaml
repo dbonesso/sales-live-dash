@@ -1,9 +1,0 @@
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  namespace: ml-data-engg
-  name: pod-deploy
-rules:
-- apiGroups: [""]
-  resources: ["deployments","jobs","pods","services","daemonsets","persistentvolumeclaims"]
-  verbs: ["create", "get", "delete", "list","watch"]
